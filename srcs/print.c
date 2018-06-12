@@ -6,36 +6,14 @@
 /*   By: vsanghan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:24:28 by vsanghan          #+#    #+#             */
-/*   Updated: 2018/06/09 16:07:34 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/11 18:00:37 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "libft.h"
 
-char	**put_piece(char *array, int count, int i, int j)
-{
-	char	**map;
-
-	if (!(map = (char**)malloc(sizeof(char*) * count + 1)))
-	
-	count = 0;
-	i = 0;
-	while (array[i] != '\0')
-	{
-		if (array[i] != '\n')
-			map[j][count++] = array[i];
-		if (((i + 1) % 21) == 0)
-		{
-			count = 0;
-			j++;
-		}
-		i++;
-	}
-	return (map);
-}
-
-void	change_letter(char **tet, int i, int j)
+void	put_letter(char **tet, int i, int j)
 {
 	char	c;
 	c = 'A';
@@ -55,7 +33,7 @@ void	change_letter(char **tet, int i, int j)
 		error();
 }
 
-void	print(char *str)
+void	print(char **str)
 {
 	int	i;
 
@@ -65,4 +43,20 @@ void	print(char *str)
 		ft_putendl(str[i]);
 		i++;
 	}
+}
+
+int			count_tet(char *s)
+{
+	int i;
+	int nb;
+
+	i = 0;
+	nb = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\n' && (s[i + 1] == '\n' || s[i + 1] == '\0'))
+			nb++;
+		i++;
+	}
+	return (nb);
 }

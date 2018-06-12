@@ -6,13 +6,14 @@
 #    By: ncosta <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/23 16:17:55 by ncosta            #+#    #+#              #
-#    Updated: 2018/06/08 22:24:46 by vsanghan         ###   ########.fr        #
+#    Updated: 2018/06/11 16:08:15 by vsanghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-SRCS = srcs/ft_first_check srcs/checker.c srcs/fillit.c srcs/main.c srcs/solver.c
+SRCS = srcs/ft_first_check.c srcs/ft_second_check.c srcs/map.c srcs/validater.c \
+	   srcs/main.c srcs/solver.c
 
 OBJ = *.o
 

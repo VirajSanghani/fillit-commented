@@ -6,13 +6,13 @@
 /*   By: ncosta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 16:30:21 by ncosta            #+#    #+#             */
-/*   Updated: 2018/06/09 17:28:21 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:51:23 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int  ft_check_symbol(char *str)
+int  ft_check_symbol(char *s)
 {
 	int i;
 	int hash;
@@ -40,35 +40,32 @@ int  ft_check_symbol(char *str)
 	return (1);
 }
 
-int			check_size(char *buf, int size)
+int		ft_check_line(char *s)
 {
-	int			squ_x;
-	int			squ_y;
+	int x;
+	int y;
+	int add_5;
 
-	while (size >= 0)
+	x = 0;
+	y = 0;
+	add_5 = 4;
+	while (s[x] != '\0')
 	{
-		size--;
-		squ_y = 0;
-		while (squ_y < 4)
+		if (s[x] == '.' || s[x] == '#')
+			y++;
+		if (y > 4)
+			return (0);
+		if (s[x] == '\n' && x == add_5)
 		{
-			squ_x = 0;
-			if (buf[size] != '\n')
-				return (0);
-			while (squ_x < 4)
-			{
-				size--;
-				if (size < 0 || buf[size] == '\n')
-					return (0);
-				squ_x++;
-			}
-			squ_y++;
-			size--;
+			y = 0;
+			add_5 += 5;
 		}
+		x++;
 	}
 	return (1);
 }
 
-static	int		check_tet(char *s)
+int		ft_check_piece(char *s)
 {
 	int height;
 	int width;
@@ -100,13 +97,13 @@ int			checker(char **tab)
 	i = 0;
 	if (tab[0] == NULL)
 		return (0);
-	while (i < g_nb_tetrimino)
+	while (i < count_tet)
 	{
 		if (ft_check_symbol(tab[i]) != 1)
 			return (0);
-		if (ft_check_size(tab[i]) != 1)
+		if (ft_check_line(tab[i]) != 1)
 			return (0);
-		if (ft_check_tet(tab[i]) != 1)
+		if (ft_check_piece(tab[i]) != 1)
 			return (0);
 		i++;
 	}

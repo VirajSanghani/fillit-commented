@@ -6,31 +6,31 @@
 /*   By: vsanghan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:01:28 by vsanghan          #+#    #+#             */
-/*   Updated: 2018/06/09 16:34:04 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:13:09 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char	**put_in_map(char *array, int count, int i, int j)
+char	**put_in_map(char *tet, int count, int i, int j)
 {
-	char	**matrix;
+	char	**map;
 
-	if (!(matrix = (char**)malloc(sizeof(char*) * count + 1)))
+	if (!(map = (char**)malloc(sizeof(char*) * count + 1)))
 		return (NULL);
-	matrix[count] = NULL;
+	map[count] = NULL;
 	while (i < count)
 	{
-		if (!(matrix[i++] = (char*)malloc(sizeof(char) * 16 + 1)))
+		if (!(map[i++] = (char*)malloc(sizeof(char) * 16 + 1)))
 			return (NULL);
-		matrix[i - 1][16] = '\0';
+		map[i - 1][16] = '\0';
 	}
 	count = 0;
 	i = 0;
-	while (array[i] != '\0')
+	while (tet[i] != '\0')
 	{
-		if (array[i] != '\n')
-			matrix[j][count++] = array[i];
+		if (tet[i] != '\n')
+			map[j][count++] = tet[i];
 		if (((i + 1) % 21) == 0)
 		{
 			count = 0;
@@ -38,54 +38,44 @@ char	**put_in_map(char *array, int count, int i, int j)
 		}
 		i++;
 	}
-	return (matrix);
+	return (map);
 }
 
-char	**remove_piece(char **square, char *str, int i, int j)
+int		validate_piece(char **tetris, int i, int j)
 {
-	char	chr;
-
-	chr = str[how_many_dots(str)];
-	while (square[j])
-	{
-		while (square[j][i])
-		{
-			if (square[j][i] == chr)
-				square[j][i] = '.';
-			i++;
-		}
-		i = 0;
-		j++;
-	}
-	return (square);
+	if ((j + 1) >= 0 && tetris[i][j + 1] == '#')
+		if (((j + 1) % 4) == 0)
+			return (0);
+	return (((j - 1) >= 0 && tetris[i][j - 1] == '#')
+			+ ((j - 4) >= 0 && tetris[i][j - 4] == '#')
+			+ ((j + 1) <= 15 && tetris[i][j + 1] == '#')
+			+ ((j + 4) <= 15 && tetris[i][j + 4] == '#'));
 }
 
-char	**new_square(int size)
+void	validater(char **tetris, int i, int j, int hash)
 {
-	char	**square;
-	int		i;
-	int		j;
+	int	ok;
+	int	center;
 
-	i = 0;
-	if (!(square = malloc(sizeof(char*) * (size + 1))))
-		return (NULL);
-	square[size] = NULL;
-	while (i < size)
+	while (tetris[++i] != '\0')
 	{
-		if (!(square[i] = malloc(sizeof(char) * (size + 1))))
-			return (NULL);
-		square[i][size] = '\0';
-		i++;
+		center = 0;
+		while ((tetris[i][++j] != '\0') && (tetris[i][j] == '.' ||
+					tetris[i][j] == '\n' || tetris[i][j] == '#'))
+			if (tetris[i][j] == '#')
+			{
+				if ((ok = validate_piece(tetris, i, j)) > 0)
+				{
+					hash++;
+					if (ok > 1)
+						center = ok;
+				}
+				else
+					exit(1);
+			}
+		if (center <= 1 || hash != 4 || tetris[i][j] != '\0')
+			exit(1);
+		hash = 0;
+		j = -1;
 	}
-	i = 0;
-	while (square[i])
-	{
-		j = 0;
-		while (j < size)
-			square[i][j++] = '.';
-		i++;
-	}
-	return (square);
 }
-
-char **put_piece()

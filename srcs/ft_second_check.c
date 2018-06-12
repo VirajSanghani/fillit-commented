@@ -6,7 +6,7 @@
 /*   By: vsanghan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 14:36:35 by vsanghan          #+#    #+#             */
-/*   Updated: 2018/06/09 17:27:49 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/11 15:07:08 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,29 @@ int		is_alone(char *s)
 				return (1);
 		}
 		i++;
+	}
+	return (0);
+}
+
+int		check_map(char **square, char *str, int i, int j)
+{
+	int	dots;
+	int	size;
+	int	k;
+
+	size = count_bits(square);
+	dots = num_dots(str);
+	k = dots - 1;
+	while (str[++k] != '\0')
+	{
+		if (str[k] != '.')
+		{
+			if ((j + (k / 4) - (dots / 4) >= size)
+					|| (i + (k % 4) - (dots % 4) >= size)
+					|| square[j + (k / 4) - (dots / 4)]
+					[(i + (k % 4) - (dots % 4))] != '.')
+				return (1);
+		}
 	}
 	return (0);
 }

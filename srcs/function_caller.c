@@ -6,17 +6,17 @@
 /*   By: vsanghan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 21:43:28 by vsanghan          #+#    #+#             */
-/*   Updated: 2018/06/09 16:33:19 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:19:33 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	funtion_caller(char **tet, int counter, char *buf, int fd)
+void	f_caller(char **tet, int counter, char *buf, int fd)
 {
 	tet = put_in_map(buf, count, 0, 0);
 	free(buf);
-	first_check();
+	validater(tet, -1, -1, 0);
 	put_letter(tet, 0, 0);
 	fillit(tet, count);
 	close(fd);
