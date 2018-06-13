@@ -6,13 +6,13 @@
 /*   By: vsanghan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 21:43:28 by vsanghan          #+#    #+#             */
-/*   Updated: 2018/06/11 17:19:33 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/12 10:58:18 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	f_caller(char **tet, int counter, char *buf, int fd)
+void	f_caller(char **tet, int count, char *buf, int fd)
 {
 	tet = put_in_map(buf, count, 0, 0);
 	free(buf);
@@ -35,7 +35,7 @@ void	fillit(char **tet, int nb)
 		free_square(map);
 		map = new_square(size);
 	}
-	ft_print(map);
+	print(map);
 }
 
 int		ft_sqrt(int len)

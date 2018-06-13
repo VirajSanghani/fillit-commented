@@ -6,7 +6,7 @@
 /*   By: ncosta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 16:30:21 by ncosta            #+#    #+#             */
-/*   Updated: 2018/06/11 17:51:23 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/13 14:13:55 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,20 @@ int		ft_check_piece(char *s)
 		return (0);
 }
 
-int			checker(char **tab)
+int			checker(char *tab, int count)
 {
 	int i;
 
 	i = 0;
-	if (tab[0] == NULL)
+	if (tab == NULL)
 		return (0);
-	while (i < count_tet)
+	while (i < count)
 	{
-		if (ft_check_symbol(tab[i]) != 1)
+		if (ft_check_symbol(&tab[i]) != 1)
 			return (0);
-		if (ft_check_line(tab[i]) != 1)
+		if (ft_check_line(&tab[i]) != 1)
 			return (0);
-		if (ft_check_piece(tab[i]) != 1)
+		if (ft_check_piece(&tab[i]) != 1)
 			return (0);
 		i++;
 	}

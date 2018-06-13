@@ -6,10 +6,11 @@
 /*   By: ncosta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 17:45:49 by ncosta            #+#    #+#             */
-/*   Updated: 2018/06/11 17:46:39 by vsanghan         ###   ########.fr       */
+/*   Updated: 2018/06/13 14:11:52 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FILLIT_H
 # define FILLIT_H
 
 # include "../libft/libft.h"
@@ -37,13 +38,15 @@ char			**new_square(int size);
 int				count_bits(char **str);
 int				ft_sqrt(int len);
 int				num_dots(char *str);
-void			free_map(char **map);
+void			free_square(char **map);
 int				is_alone(char *s);
 int				check_void_int(char *s);
 int				get_height(char *s);
 int				get_width(char *s);
-int				checker(char **tab);
+int				checker(char *tab, int count);
 int				ft_check_piece(char *s);
 int				ft_check_line(char *s);
 int  			ft_check_symbol(char *s);
 void			f_caller(char **tet, int counter, char *buf, int fd);
+
+#endif 

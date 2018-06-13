@@ -1,55 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanghan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/06 06:08:04 by vsanghan          #+#    #+#             */
-/*   Updated: 2018/06/11 17:14:34 by vsanghan         ###   ########.fr       */
+/*   Created: 2018/06/05 17:24:28 by vsanghan          #+#    #+#             */
+/*   Updated: 2018/06/12 10:57:39 by vsanghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char 	**new_square(int size)
+void	put_letter(char **tet, int i, int j)
 {
-	char 	**map;
-	int		i;
-	int		j;
-
-	i = 0;
-	if (!(map = malloc(sizeof(char*) * (size + 1))))
-			return (0);
-	map[size] = NULL;
-	while(i < size)
+	char	c;
+	c = 'A';
+	while (tet[i] != '\0')
 	{
-		if (!(map[i] = malloc(sizeof(char) * (size + 1))))
-			return (0);
-		map[i][size] = '\0';
-		i++;
-	}
-	while (map[i])
-	{
+		while(tet[i][j] != '\0')
+		{
+			if (tet[i][j] == '#')
+				tet[i][j] = c;
+			j++;
+		}
 		j = 0;
-		while (j < size)
-			map[i][j++] = '.';
+		c++;
 		i++;
 	}
-	return (map);
+	if (c > 'Z' + 1)
+		exit(0);
 }
 
-void	free_map(char **map)
+void	print(char **str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i] != '\0')
+	{
+		ft_putendl(str[i]);
+		i++;
+	}
+}
+
+int			count_tet(char *s)
 {
 	int i;
-	int j;
+	int nb;
 
-	i = ft_strlen(*map);
-	j = 0;
-	while (j < i)
+	i = 0;
+	nb = 0;
+	while (s[i] != '\0')
 	{
-		free(map[j]);
-		j++;
+		if (s[i] == '\n' && (s[i + 1] == '\n' || s[i + 1] == '\0'))
+			nb++;
+		i++;
 	}
-	free(map);
+	return (nb);
 }
